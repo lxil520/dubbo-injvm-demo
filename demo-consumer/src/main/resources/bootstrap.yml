@@ -1,0 +1,53 @@
+dubbo:
+  application:
+    name: demo-injvm
+    logger: slf4j
+    qos-enable: false
+  consumer:
+    check: false
+    lazy: true
+    scope: local
+  protocol:
+    accepts: 200
+    port: -1
+    threadpool: cached
+    threads: 200
+  provider:
+    scope: local
+  registry:
+    address: N/A
+  scan:
+    base-packages: org.example
+logging:
+  level:
+    com:
+      freedom:
+        paas: debug
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+server:
+  port: 18002
+  servlet:
+    context-path: /
+  max-http-header-size: 20KB
+
+spring:
+  application:
+    name: demo
+  main:
+    allow-circular-references: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true
+  servlet:
+    multipart:
+      # 允许上传文件的最大值 10Gb
+      max-file-size: 10240MB
+      # 单次请求文件的总大小 10Gb
+      max-request-size: 10240MB
+  mvc:
+    throw-exception-if-no-handler-found: true
+    resources:
+      add-mappings: false
