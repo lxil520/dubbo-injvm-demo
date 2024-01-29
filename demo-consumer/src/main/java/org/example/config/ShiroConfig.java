@@ -43,6 +43,8 @@ import java.util.Map;
 public class ShiroConfig {
     @Autowired
     private ISecurityHandler securityHandler;
+    @Autowired
+    private CorsFilter corsFilter;
 
     @Bean
     public DefaultWebSecurityManager securityManager(UsernamePasswordRealm usernamePasswordRealm) {
@@ -66,6 +68,7 @@ public class ShiroConfig {
 
         // 1、注册自定义过滤器(覆盖Shiro自带)
         Map<String, Filter> filterMap = new HashMap<>();
+        filterMap.put("cors", corsFilter);
         filterMap.put(DefaultFilter.perms.name(), new PermissionFilter());
         filterMap.put(DefaultFilter.authcBearer.name(), new JwtAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
