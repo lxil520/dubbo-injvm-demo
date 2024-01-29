@@ -3,7 +3,6 @@ package org.example.config;
 import cn.hutool.core.util.ObjectUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import jakarta.servlet.Filter;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -30,6 +29,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.servlet.Filter;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -43,6 +43,8 @@ import java.util.Map;
 public class ShiroConfig {
     @Autowired
     private ISecurityHandler securityHandler;
+    @Autowired
+    private CorsFilter corsFilter;
 
     @Bean
     public DefaultWebSecurityManager securityManager(UsernamePasswordRealm usernamePasswordRealm) {
@@ -66,6 +68,7 @@ public class ShiroConfig {
 
         // 1、注册自定义过滤器(覆盖Shiro自带)
         Map<String, Filter> filterMap = new HashMap<>();
+        filterMap.put("cors", corsFilter);
         filterMap.put(DefaultFilter.perms.name(), new PermissionFilter());
         filterMap.put(DefaultFilter.authcBearer.name(), new JwtAuthenticationFilter());
         shiroFilterFactoryBean.setFilters(filterMap);
@@ -96,7 +99,6 @@ public class ShiroConfig {
         }
 
         LinkedHashMap<String, String> filterChainDefinitionMap = new LinkedHashMap<>();
-        filterChainDefinitionMap.put("/demo-test", "cors," + DefaultFilter.anon.name());
 
         // 其余均走jwt登录态校验
         filterChainDefinitionMap.put("/**", "cors," + DefaultFilter.authcBearer.name());

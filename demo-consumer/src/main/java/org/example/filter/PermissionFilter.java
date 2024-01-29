@@ -2,11 +2,11 @@ package org.example.filter;
 
 import cn.hutool.http.ContentType;
 import cn.hutool.json.JSONUtil;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.ServletResponse;
 import org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter;
 import org.example.Result;
 
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
