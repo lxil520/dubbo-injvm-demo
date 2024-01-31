@@ -2,9 +2,7 @@ package org.example.handler;
 
 import org.apache.dubbo.common.logger.Logger;
 import org.apache.dubbo.common.logger.LoggerFactory;
-import org.apache.dubbo.config.ReferenceConfig;
 import org.apache.dubbo.config.annotation.DubboReference;
-import org.apache.dubbo.config.deploy.DefaultModuleDeployer;
 import org.example.bo.PermissionBo;
 import org.example.dto.DemoRequestDto;
 import org.example.dto.DemoResponseDto;
